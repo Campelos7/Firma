@@ -1,244 +1,160 @@
-# 🔧 Sistema de Gestão — Ferragens e Serralharia
+# 🔧 Management System — Hardware & Metalworking
 
-Aplicação em **Python + Streamlit** com **PostgreSQL** para apoiar a gestão operacional e analítica de uma empresa de ferragens/serralharia: **stock**, **produção**, **encomendas**, **entregas**, **preços/rentabilidade** e **faturação** (inclui **PDF + QR**).
+Application built with **Python + Streamlit** and **PostgreSQL** to support the operational and analytical management of a hardware / metalworking company: **stock**, **production**, **orders**, **deliveries**, **pricing & profitability**, and **invoicing** (includes **PDF + QR**).
 
-Documentação rápida:
-- [INICIO_RAPIDO.md](INICIO_RAPIDO.md) (setup rápido)
-- [SETUP_GUIDE.md](SETUP_GUIDE.md) (setup detalhado)
+Quick documentation:
+- [INICIO_RAPIDO.md](INICIO_RAPIDO.md) (quick setup)
+- [SETUP_GUIDE.md](SETUP_GUIDE.md) (detailed setup)
 
-## 📋 Funcionalidades
+---
 
-- 📊 **Dashboard Geral** - Visão geral do negócio com métricas principais
-- 💰 **Análise de Preços** - Rentabilidade, comparação com mercado, top clientes
-- 📦 **Gestão de Stock** - Stock crítico, valor de inventário, previsão de necessidades
-- 🚚 **Entregas** - Entregas pendentes, performance, custos de logística
+## 📋 Features
 
-### Novidades (2026)
+- 📊 **General Dashboard** – Business overview with key metrics  
+- 💰 **Pricing Analysis** – Profitability, market comparison, top customers  
+- 📦 **Stock Management** – Critical stock, inventory value, demand forecasting  
+- 🚚 **Deliveries** – Pending deliveries, performance, logistics costs  
 
-- ⏱️ **Controlo Produção** - Etapas, cronómetro start/pausa/retoma/fim, gargalos, Gantt e eficiência
-- 📉 **Consumo de Materiais** - Consumo planeado vs real, desperdício e impacto monetário (integrado em Encomendas)
-- 💶 **Faturação** - Numeração sequencial AAAA/0001, itens, pagamentos, PDF + QR, aging report e cash flow
-- ➕ **Nova Encomenda (Wizard)** - Multi-step com criação de cliente/produto, cálculo de custos, criação de orçamento/encomenda
-- 📋 **Encomendas (Detalhe)** - Lista/Calendário/Kanban + detalhe (materiais, produção, faturação, documentos, histórico)
+### New (2026)
 
-## 🛠️ Tecnologias
+- ⏱️ **Production Control** – Stages, start/pause/resume/finish timer, bottlenecks, Gantt charts and efficiency  
+- 📉 **Material Consumption** – Planned vs actual consumption, waste and monetary impact (integrated into Orders)  
+- 💶 **Invoicing** – Sequential numbering YYYY/0001, items, payments, PDF + QR, aging report and cash flow  
+- ➕ **New Order (Wizard)** – Multi-step flow with client/product creation, cost calculation, quote/order creation  
+- 📋 **Orders (Detail)** – List/Calendar/Kanban + detailed view (materials, production, invoicing, documents, history)  
 
-**App & UI**
-- Python (3.9+; recomendado 3.11+)
+---
+
+## 🛠️ Technologies
+
+### App & UI
+- Python (3.9+; recommended 3.11+)
 - Streamlit
 
-**Base de Dados**
+### Database
 - PostgreSQL
 - psycopg2 (driver)
 
-**Dados & Visualização**
+### Data & Visualization
 - pandas
 - Plotly
 
-**Documentos**
+### Documents
 - fpdf2 (PDF)
-- qrcode + Pillow (QR/imagens)
+- qrcode + Pillow (QR/images)
 
-**Config**
+### Configuration
 - python-dotenv (.env)
 
-## 📦 Estrutura do Projeto
+---
+
+## 📦 Project Structure
 
 ```
 Firma/
 ├── dashboard/
-│   └── app.py              # Dashboard Streamlit principal
+│   └── app.py
 ├── src/
-│   ├── database.py         # Gestão de conexões à BD
-│   ├── pricing.py          # Análises de preços e rentabilidade
-│   ├── inventory.py        # Gestão de stock e inventário
-│   ├── delivery.py         # Análise de entregas
-│   └── visualizations.py   # Funções para gráficos
-│   ├── production.py        # Produção (etapas + tempos)
-│   ├── material_tracking.py # Consumos e desperdício
-│   ├── invoicing.py         # Faturação (faturas/itens/pagamentos)
-│   └── pdf_generator.py     # PDFs (fatura/orçamento) + QR
+│   ├── database.py
+│   ├── pricing.py
+│   ├── inventory.py
+│   ├── delivery.py
+│   ├── visualizations.py
+│   ├── production.py
+│   ├── material_tracking.py
+│   ├── invoicing.py
+│   └── pdf_generator.py
 ├── sql/
-│   ├── schema.sql          # Schema da base de dados
-│   ├── inserts.sql         # Dados de exemplo
-│   └── queries.sql         # Queries analíticas
+│   ├── schema.sql
+│   ├── inserts.sql
+│   └── queries.sql
 ├── scripts/
-│   └── apply_schema.py      # Aplica schema.sql (+ inserts opcional)
-├── config.py               # Configurações
-├── requirements.txt        # Dependências Python
-├── .env                    # Configurações locais (criar manualmente)
-└── README.md              # Este ficheiro
+│   └── apply_schema.py
+├── config.py
+├── requirements.txt
+├── .env
+└── README.md
 ```
+
+---
 
 ## 🚀 Getting Started (Windows / PowerShell)
 
-### 1) Pré-requisitos
+### 1) Prerequisites
 
-#### Instalar PostgreSQL
-1. Descarregar e instalar PostgreSQL: https://www.postgresql.org/download/windows/
-2. Durante a instalação, definir password para o utilizador `postgres`
-3. Verificar instalação:
+#### Install PostgreSQL
+1. Download and install PostgreSQL: https://www.postgresql.org/download/windows/
+2. Set a password for the `postgres` user
+3. Verify installation:
 ```powershell
 psql --version
 ```
 
-#### Instalar Python
-1. Verificar se tens Python instalado:
+#### Install Python
 ```powershell
 python --version
 ```
-2. Se não tiveres, descarregar de: https://www.python.org/downloads/
 
-> Nota: devido às dependências (ex.: `pandas`), recomenda-se **Python 3.11+**.
+> Python **3.11+** recommended.
 
-### 2) Configurar Base de Dados
+---
 
-#### Criar base de dados e carregar schema/dados
+### 2) Database Setup
 
 ```powershell
-# Navegar para a pasta do projeto
-cd <CAMINHO_PARA_O_PROJETO>\Firma
-
-# Criar base de dados
 psql -U postgres -c "CREATE DATABASE firma;"
-
-# Carregar schema (estrutura das tabelas)
 psql -U postgres -d firma -f sql\schema.sql
-
-# Carregar dados de exemplo
 psql -U postgres -d firma -f sql\inserts.sql
 ```
 
-**NOTA**: Quando executares os comandos `psql`, vai pedir a password do PostgreSQL que definiste na instalação.
+---
 
-### 3) Configurar Ambiente Python
-
-#### Instalar dependências:
-
-Opcional (recomendado): criar ambiente virtual
+### 3) Python Environment
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-
-```powershell
-# Navegar para a pasta do projeto (se ainda não estiveres)
-cd <CAMINHO_PARA_O_PROJETO>\Firma
-
-# Instalar pacotes Python necessários
 python -m pip install -r requirements.txt
 ```
 
-### 4) Configurar Credenciais (.env)
+---
 
-Criar ficheiro `.env` na raiz do projeto com as tuas credenciais:
+### 4) Environment Variables
 
-```powershell
-# Copiar exemplo
-copy .env.example .env
-
-# Editar .env com as tuas credenciais
-notepad .env
-```
-
-Conteúdo do `.env`:
 ```
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=firma
 DB_USER=postgres
-DB_PASSWORD=<A_TUA_PASSWORD_POSTGRESQL>
+DB_PASSWORD=your_password
 ```
-
-> Dica: o repositório inclui `.env.example` com opções extra (dados da empresa para PDFs e SMTP). O `.env` está no `.gitignore`.
-
-### 5) Executar Dashboard
-
-```powershell
-# A partir da pasta do projeto
-streamlit run dashboard\app.py
-```
-
-O dashboard vai abrir automaticamente no teu browser em: **http://localhost:8501**
-
-## 📱 Como usar o Dashboard
-
-1. **🏠 Dashboard** - Página inicial com visão geral
-2. **💰 Análise de Preços** - Clica na sidebar para ver análises de rentabilidade
-3. **📦 Gestão de Stock** - Ver materiais críticos e valor de inventário
-4. **🚚 Entregas** - Gerir entregas pendentes e analisar performance
-
-## 🧰 Scripts úteis
-
-- Aplicar `schema.sql` e (opcionalmente) `inserts.sql` via Python: 
-	- `python scripts\apply_schema.py`
-
-## 🔧 Resolução de Problemas
-
-### Erro: "connection refused" ou "database does not exist"
-- Verificar se PostgreSQL está a correr
-- Confirmar que a base de dados `firma` foi criada
-- Verificar credenciais no ficheiro `.env`
-
-### Erro: "No module named 'psycopg2'"
-```powershell
-python -m pip install psycopg2-binary
-```
-
-### Erro: "No module named 'streamlit'"
-```powershell
-python -m pip install streamlit
-```
-
-### Para reiniciar a base de dados (apagar tudo e começar de novo):
-```powershell
-psql -U postgres -c "DROP DATABASE firma;"
-psql -U postgres -c "CREATE DATABASE firma;"
-psql -U postgres -d firma -f sql\schema.sql
-psql -U postgres -d firma -f sql\inserts.sql
-```
-
-### Alternativa (sem `psql` no PATH)
-
-Se não tiveres o `psql` disponível no terminal, podes aplicar o schema via Python (a BD precisa de existir):
-
-```powershell
-python scripts\apply_schema.py
-```
-
-## 📊 Dados de Exemplo
-
-O projeto inclui dados de exemplo em `sql/inserts.sql` com:
-- Fornecedores de vários países
-- Materiais (inox, ferro, alumínio, etc.)
-- Tipos de produtos (portões, estruturas, etc.)
-- Orçamentos e vendas
-- Entregas e movimentos de stock
-
-## 🎯 Roadmap
-
-- [ ] Adicionar autenticação de utilizadores
-- [ ] Exportar relatórios em PDF
-- [ ] Notificações automáticas de stock crítico
-- [ ] Dashboard mobile-friendly
-- [ ] Integração com APIs de fornecedores
-
-## 📘 Documentação
-
-- Setup rápido: [INICIO_RAPIDO.md](INICIO_RAPIDO.md)
-- Setup detalhado: [SETUP_GUIDE.md](SETUP_GUIDE.md)
-
-## 📝 Notas
-
-- A aplicação usa dados de exemplo. Podes modificar `sql/inserts.sql` com os teus dados reais.
-- Para fazer backup da base de dados: `pg_dump -U postgres firma > backup.sql`
-- Para ambiente de produção, alterar credenciais e usar variáveis de ambiente seguras.
-
-## 👤 Autor
-
-Data Analyst Portfolio Project - 2026
 
 ---
 
-**🚀 Boa sorte com a tua aplicação!**
+### 5) Run the App
+
+```powershell
+streamlit run dashboard\app.py
+```
+
+---
+
+## 📊 Sample Data
+
+Includes suppliers, materials, products, quotes, sales, deliveries and stock movements.
+
+---
+
+## 🎯 Roadmap
+
+- [ ] User authentication
+- [ ] PDF report exports
+- [ ] Stock alerts
+- [ ] Mobile dashboard
+- [ ] Supplier API integrations
+
+---
+
+## 👤 Author
+
+Data Analyst Portfolio Project – 2026
